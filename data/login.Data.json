@@ -1,0 +1,13 @@
+[
+    {
+      "username": "cesar.christianne@gmail.com",
+      "password": "NewApprentice",
+      "expectedResult": "success"
+    },
+    {
+      "username": "testuser2",
+      "password": "wrongpassword",
+      "expectedResult": "failure"
+    }
+  ]
+  

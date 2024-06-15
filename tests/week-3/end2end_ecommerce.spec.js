@@ -17,8 +17,8 @@ test('Purchase a product successfully', async ({ page }) => {
   const thankYouOrderMessage = page.locator('h1');
 
   // Test data
-  const email = "YOUR_EMAIL_ADDRESS";
-  const password = "YOUR_PASSWORD";
+  const email = "cesar.christianne@gmail.com";
+  const password = "NewApprentice";
   const targetProductName = "ADIDAS ORIGINAL";
   const country = "Philippines";
   const cvvCode = "4600";

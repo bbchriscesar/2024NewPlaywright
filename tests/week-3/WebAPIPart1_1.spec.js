@@ -5,8 +5,8 @@ test.beforeAll(async ({ request }) => {
 
     const loginEndpoint = 'https://rahulshettyacademy.com/api/ecom/auth/login';
     const loginPayload = {
-        userEmail: 'YOUR_EMAIL_ADDRESS',
-        userPassword: 'YOUR_PASSWORD'
+        userEmail: 'cesar.christianne@gmail.com',
+        userPassword: 'NewApprentice'
     };
 
     const response = await request.post(loginEndpoint, {
