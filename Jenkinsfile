@@ -1,10 +1,11 @@
 pipeline {
     agent any
+    stages {
         stage('Run Playwright Tests') {
             steps {
-                sh '''
-                /usr/local/bin/npx playwright test --grep @nbafinals  // Replace with the actual path if different
-                '''
+                script {
+                    sh '/usr/local/bin/npx playwright test --grep @nbafinals' // Replace with the actual path if different
+                }
             }
         }
     }
