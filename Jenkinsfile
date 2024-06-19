@@ -1,12 +1,14 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "$PATH:/usr/local/bin/node"
+    }
+
     stages {
         stage('Verify Node.js and npm') {
             steps {
                 sh '''
-                echo "Sourcing zsh configuration"
-                source ~/.zshrc || true
                 echo "Node.js version:"
                 node -v
                 echo "npm version:"
@@ -19,8 +21,6 @@ pipeline {
         stage('Run Playwright Tests') {
             steps {
                 sh '''
-                echo "Sourcing zsh configuration"
-                source ~/.zshrc || true
                 npx playwright test --grep @nbafinals
                 '''
             }
