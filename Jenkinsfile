@@ -2,9 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Run Playwright Tests') {
             steps {
-                echo 'Hello World'
+                script {
+                    sh 'npx playwright test --grep @nbafinals'
+                }
             }
         }
     }
