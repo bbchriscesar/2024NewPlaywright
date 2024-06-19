@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PATH = "$PATH:/usr/local/bin/node"
+        PATH = "$PATH:/usr/local/bin"  // Adjust the path based on the output of which node/npm/npx
     }
 
     stages {
@@ -10,18 +10,18 @@ pipeline {
             steps {
                 sh '''
                 echo "Node.js version:"
-                node -v
+                /usr/local/bin/node -v  // Replace with the actual path if different
                 echo "npm version:"
-                npm -v
+                /usr/local/bin/npm -v   // Replace with the actual path if different
                 echo "npx version:"
-                npx -v
+                /usr/local/bin/npx -v   // Replace with the actual path if different
                 '''
             }
         }
         stage('Run Playwright Tests') {
             steps {
                 sh '''
-                npx playwright test --grep @nbafinals
+                /usr/local/bin/npx playwright test --grep @nbafinals  // Replace with the actual path if different
                 '''
             }
         }
