@@ -1,29 +1,50 @@
 pipeline {
-    agent any
-
-    options {
-        timeout(time: 60, unit: 'MINUTES')
+    agent {
+        label 'self-hosted-agent' // Replace with the label of your self-hosted agent
     }
-
     environment {
         NODE_VERSION = '18' // Specify the Node.js version
     }
-
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                // Checkout the source code from the GitHub repository
+                git branch: 'main', url: 'https://github.com/bbchriscesar/2024NewPlaywright.git'
             }
         }
-
-        stage('Set up Node.js') {
+        stage('Install Node.js') {
             steps {
-                script {
-                    // Use a Node.js installation available on the Jenkins node
-                    env.NODE_HOME = tool name: "NodeJS ${NODE_VERSION}", type: 'NodeJS'
-                    env.PATH = "${env.NODE_HOME}/bin:${env.PATH}"
-                }
+                // Install Node.js
+                sh 'curl -sL https://deb.nodesource.com/setup_$NODE_VERSION | sudo -E bash -'
+                sh 'sudo apt-get install -y nodejs'
             }
         }
-
         stage('Install Dependencies') {
+            steps {
+                // Install npm dependencies
+                sh 'npm install'
+            }
+        }
+        stage('Run Playwright Tests') {
+            steps {
+                // Run Playwright tests
+                sh 'npx playwright test'
+            }
+        }
+    }
+    post {
+        always {
+            // Archive test results and logs
+            archiveArtifacts artifacts: '**/test-results/**', allowEmptyArchive: true
+            junit '**/test-results/**/*.xml'
+        }
+        failure {
+            // Notify on failure (you can add email or other notifications here)
+            echo 'Tests failed!'
+        }
+        success {
+            // Notify on success (you can add email or other notifications here)
+            echo 'Tests passed!'
+        }
+    }
+}
